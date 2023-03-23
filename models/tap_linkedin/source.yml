@@ -1,0 +1,7 @@
+version: 2
+sources:
+  - name: tap_linkedin
+    loader: meltano
+    schema: TEST_MELTANO_LINKEDIN
+    tables:
+      - name: accounts
