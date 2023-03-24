@@ -2,6 +2,11 @@ version: 2
 sources:
   - name: tap_linkedin
     loader: meltano
-    schema: TEST_MELTANO_LINKEDIN
+    schema: PROD_MELTANO_LINKEDIN
     tables:
       - name: accounts
+      - name: account_users
+      - name: ad_analytics_by_campaign
+      - name: ad_analytics_by_creative
+      - name: campaign_groups
+      - name: campaigns
