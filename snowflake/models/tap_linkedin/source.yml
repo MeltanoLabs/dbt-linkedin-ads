@@ -10,3 +10,5 @@ sources:
       - name: ad_analytics_by_creative
       - name: campaign_groups
       - name: campaigns
+      - name: video_ads
+
