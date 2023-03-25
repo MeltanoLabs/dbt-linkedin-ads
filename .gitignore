@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 .idea/*
 
+profiles.yml
+
 # C extensions
 *.so
 
@@ -128,3 +130,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.user.yml
+profiles.yml

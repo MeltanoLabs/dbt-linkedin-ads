@@ -2,7 +2,7 @@ name: 'snowflake'
 version: '1.0.0'
 config-version: 2
 
-profile: 'my-snowflake-db'
+profile: 'RYAN-MIRANDA-RAW'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
