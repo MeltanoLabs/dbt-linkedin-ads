@@ -4,7 +4,7 @@ config-version: 2
 
 profile: 'RYAN-MIRANDA-RAW'
 
-model-paths: ["models"]
+model-paths: ["snowflake/models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
