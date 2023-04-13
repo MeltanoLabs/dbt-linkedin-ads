@@ -5,3 +5,7 @@ sources:
     schema: MELTANO_LINKEDIN
     tables:
       - name: campaign
+      - name: campaign_groups
+      - name: account
+      - name: account_user
+      - name: video_ads
