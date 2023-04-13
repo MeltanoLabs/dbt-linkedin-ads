@@ -5,12 +5,13 @@
 }}
 
 SELECT ACCOUNT,
-       ACCOUNT_ID, 
+       ACCOUNT_ID,
        CAMPAIGN_CONTACT,
-       CHANGE_AUDIT_STAMPS,
+       CHANGEAUDITSTAMPS,
        CREATED_TIME,
        LAST_MODIFIED_TIME,
        ROLE,
        USER,
        USER_PERSON_ID
-FROM {{ source('tap_linkedin', 'account_users') }} as account_users_history
+
+FROM {{ source('tap_linkedin', 'account_user') }} as account_user_history
