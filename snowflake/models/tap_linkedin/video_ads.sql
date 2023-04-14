@@ -6,7 +6,7 @@
 
 SELECT ACCOUNT,
        ACCOUNT_ID,
-       CHANGE_AUDIT_STAMPS,
+       CHANGEAUDITSTAMPS,
        CONTENT_REFERENCE,
        CONTENT_REFERENCE_SHARE_ID,
        CONTENT_REFERENCE_UCG_POST_ID,
@@ -16,4 +16,5 @@ SELECT ACCOUNT,
        OWNER,
        OWNER_ORGANIZATION_ID,
        TYPE
+
 FROM {{ source('tap_linkedin', 'video_ads') }} as video_ads

@@ -4,11 +4,10 @@ sources:
     loader: meltano
     schema: MELTANO_LINKEDIN
     tables:
-      - name: accounts
-      - name: account_users
+      - name: campaign
+      - name: campaign_groups
+      - name: account
+      - name: account_user
+      - name: video_ads
       - name: ad_analytics_by_campaign
       - name: ad_analytics_by_creative
-      - name: campaign_groups
-      - name: campaigns
-      - name: video_ads
-
