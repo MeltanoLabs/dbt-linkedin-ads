@@ -38,4 +38,4 @@ SELECT ACCOUNT,
        UNIT_COST,
        VERSION,
        VERSION_TAG
-FROM {{ source('tap_linkedin', 'campaigns') }} as campaign_history
+FROM {{ source('tap_linkedin', 'campaign') }} as campaign_history
