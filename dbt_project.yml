@@ -2,7 +2,7 @@ name: 'snowflake'
 version: '1.0.0'
 config-version: 2
 
-profile: 'RYAN-MIRANDA-RAW-LINKEDIN'
+profile: 'RYAN-MIRANDA-RAW-LINKEDIN' #TODO: CHANGE PROFILE NAME BASED ON MELTANO RECOMMENDATION
 
 model-paths: ["snowflake/models"]
 analysis-paths: ["analyses"]
