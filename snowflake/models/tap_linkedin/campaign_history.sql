@@ -60,40 +60,6 @@ select distinct json.key as column_name
 
 FROM {{ source('tap_linkedin', 'campaign')}},
 
-lateral flatten(input=>RUNSCHEDULE) json
-{% endset %}
- 
-{% set run_schedule_results = run_query(json_column_query) %}
-
-{% if execute %}
-{# Return the first column #}
-{% set run_schedule_list = run_schedule_results.columns[0].values() %}
-{% else %}
-{% set run_schedule_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign')}},
-
-lateral flatten(input=>TARGETINGCRITERIA) json
-{% endset %}
- 
-{% set targeting_criteria_results = run_query(json_column_query) %}
-
-{% if execute %}
-{# Return the first column #}
-{% set targeting_criteria_list = targeting_criteria_results.columns[0].values() %}
-{% else %}
-{% set targeting_criteria_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign')}},
-
 lateral flatten(input=>UNITCOST) json
 {% endset %}
  
@@ -123,69 +89,67 @@ lateral flatten(input=>VERSION) json
 {% set version_list = [] %}
 {% endif %}
 
-
-SELECT ACCOUNT,
-       ACCOUNT_ID,
-       ASSOCIATEDENTITY,
-       ASSOCIATED_ENTITY_ORGANIZATION_ID,
-       ASSOCIATED_ENTITY_PERSON_ID,
-       AUDIENCEEXPANSIONENABLED,
-       CAMPAIGNGROUP,
-       CAMPAIGN_GROUP_ID,
-       CHANGEAUDITSTAMPS,
-       CREATED_TIME,
-       COSTTYPE,
+SELECT ID,
        LAST_MODIFIED_TIME,
-       CREATIVESELECTION,
-       DAILYBUDGET,
-       FORMAT,
-       ID,
-       LOCALE,
-       NAME,
-       OBJECTIVETYPE,
-       OFFSITEDELIVERYENABLED,
-       OFFSITEPREFERENCES,
-       OPTIMIZATIONTARGETTYPE,
-       PACINGSTRATEGY,
-       RUNSCHEDULE,
-       SERVINGSTATUSES,
-       STATUS,
-       STORYDELIVERYENABLED,
-       TARGETING,
-       TARGETINGCRITERIA,
-       TEST,
-       TOTALBUDGET,
+       CREATED_TIME,
        TYPE,
-       UNITCOST,
-       VERSION,
+       OBJECTIVETYPE as OBJECTIVE_TYPE,
+       ASSOCIATEDENTITY as ASSOCIATED_ENTITY,
+       OPTIMIZATIONTARGETTYPE as OPTIMIZATION_TARGET_TYPE,
+       COSTTYPE as COST_TYPE,
+       CREATIVESELECTION as CREATIVE_SELECTION,
+       NAME,
+       OFFSITEDELIVERYENABLED as OFFSITE_DELIVERY_ENABLED,
+       AUDIENCEEXPANSIONENABLED as AUDIENCE_EXPANSION_ENABLED,
+       STATUS,
+       FORMAT,
+       COUNTRY as LOCALE_COUNTRY,
+       LANGUAGE as LOCALE_LANGUAGE,
+       RUN_SCHEDULE_START,
+       RUN_SCHEDULE_END,
+       VERSIONTAG as VERSION_TAG,
+       "DAILYBUDGET_amount" as DAILY_BUDGET_AMOUNT,
+       "DAILYBUDGET_currencyCode" as DAILY_BUDGET_CURRENCY_CODE,
+       "UNITCOST_amount" as UNIT_COST_AMOUNT,
+       "UNITCOST_currencyCode" as UNIT_COST_CURRENCY_CODE,
+       CAMPAIGN_GROUP_ID,
+       ACCOUNT_ID
+FROM (SELECT ID,
+       LAST_MODIFIED_TIME,
+       CREATED_TIME,
+       TYPE,
+       OBJECTIVETYPE,
+       ASSOCIATEDENTITY,
+       OPTIMIZATIONTARGETTYPE,
+       COSTTYPE,
+       CREATIVESELECTION,
+       NAME,
+       OFFSITEDELIVERYENABLED,
+       AUDIENCEEXPANSIONENABLED,
+       STATUS,
+       FORMAT,
 
+       {% for column_name in locale_list %}
+       LOCALE:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
+       {% endfor %},
 
-{% for column_name in daily_budget_list %}
-DAILYBUDGET:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
-{% endfor %},
+       RUN_SCHEDULE_START,
+       RUN_SCHEDULE_END,
+       
+       {% for column_name in version_list %}
+       VERSION:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
+       {% endfor %},
 
-{% for column_name in locale_list %}
-LOCALE:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
-{% endfor %},
+       {% for column_name in daily_budget_list %}
+       DAILYBUDGET:{{column_name}}::varchar as "DAILYBUDGET_{{column_name}}"{%- if not loop.last %},{% endif -%}
+       {% endfor %},
 
-{% for column_name in offsite_preferences_list %}
-OFFSITEPREFERENCES:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
-{% endfor %},
+       {% for column_name in unit_cost_list %}
+       UNITCOST:{{column_name}}::varchar as "UNITCOST_{{column_name}}"{%- if not loop.last %},{% endif -%}
+       {% endfor %},
 
-{% for column_name in run_schedule_list %}
-RUNSCHEDULE:{{column_name}}::varchar as "RUNSCHEDULE_{{column_name}}"{%- if not loop.last %},{% endif -%}
-{% endfor %},
+      CAMPAIGN_GROUP_ID,
+      ACCOUNT_ID
+       
 
-{% for column_name in targeting_criteria_list %}
-TARGETINGCRITERIA:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
-{% endfor %},
-
-{% for column_name in unit_cost_list %}
-UNITCOST:{{column_name}}::varchar as "UNITCOST_{{column_name}}"{%- if not loop.last %},{% endif -%}
-{% endfor %},
-
-{% for column_name in version_list %}
-VERSION:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
-{% endfor %}
-
-FROM {{ source('tap_linkedin', 'campaign') }} as campaign_history
+FROM {{ source('tap_linkedin', 'campaign') }} as campaign_history)

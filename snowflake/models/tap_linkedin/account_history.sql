@@ -21,31 +21,22 @@ lateral flatten(input=>VERSION) json
 {% set version_list = [] %}
 {% endif %}
  
-SELECT CHANGEAUDITSTAMPS,
-       CREATED_TIME,
-       CURRENCY,
-       ID,
+SELECT ID,
        LAST_MODIFIED_TIME,
-       NAME,
-       NOTIFIEDONCAMPAIGNOPTIMIZATION,
-       NOTIFIEDONCREATIVEAPPROVAL,
-       NOTIFIEDONCREATIVEREJECTION,
-       NOTIFIEDONENDOFCAMPAIGN,
-       NOTIFIEDONNEWFEATURESENABLED,
+       CREATED_TIME,
+       NOTIFIEDONCREATIVEAPPROVAL as NOTIFIED_ON_CREATIVE_APPROVAL,
+       NOTIFIEDONCREATIVEREJECTION as NOTIFIED_ON_CREATIVE_REJECTION,
+       NOTIFIEDONCAMPAIGNOPTIMIZATION as NOTIFIED_ON_CAMPAIGN_OPTIMIZATION,
+       NOTIFIEDONENDOFCAMPAIGN as NOTIFIED_ON_END_OF_CAMPAIGN,
        REFERENCE,
-       REFERENCE_ORGANIZATION_ID,
-       REFERENCE_PERSON_ID,
-       SERVINGSTATUSES,
+       NAME,
+       CURRENCY,
        STATUS,
-       TEST,
-       TOTAL_BUDGET,
-       TOTAL_BUDGET_ENDS_AT,
        TYPE,
-       VERSION,
 
 
 {% for column_name in version_list %}
-VERSION:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
+VERSION:{{column_name}}::varchar as "VERSION_TAG"{%- if not loop.last %},{% endif -%}
 {% endfor %}
 
 FROM {{ source('tap_linkedin', 'account') }} as account_history
