@@ -21,24 +21,28 @@ lateral flatten(input=>RUNSCHEDULE) json
 {% set run_schedule_list = [] %}
 {% endif %}
 
-SELECT ACCOUNT,
-       ACCOUNT_ID,
-       ALLOWED_CAMPAIGN_TYPES,
-       BACKFILLED,
-       CHANGEAUDITSTAMPS,
+SELECT ID,
+       LAST_MODIFIED_TIME,
        CREATED_TIME,
-       ID,
-       LAST_MODIFIED_TIME
        NAME,
-       RUNSCHEDULE,
-       SERVINGSTATUSES,
+       BACKFILLED,
        STATUS,
-       TEST,
-       TOTAL_BUDGET,
+       "RUNSCHEDULE_start" as RUN_SCHEDULE_START,
+       RUN_SCHEDULE_END,
+       ACCOUNT_ID
+FROM (SELECT ID,
+       LAST_MODIFIED_TIME,
+       CREATED_TIME,
+       NAME,
+       BACKFILLED,
+       STATUS,
 
+       {% for column_name in run_schedule_list %}
+       RUNSCHEDULE:{{column_name}}::varchar as "RUNSCHEDULE_{{column_name}}"{%- if not loop.last %},{% endif -%}
+       {% endfor %},
 
-{% for column_name in run_schedule_list %}
-RUNSCHEDULE:{{column_name}}::varchar as "RUNSCHEDULE_{{column_name}}"{%- if not loop.last %},{% endif -%}
-{% endfor %}
+       RUN_SCHEDULE_END,
 
-FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_history
+       ACCOUNT_ID
+
+FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_history)
