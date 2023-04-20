@@ -60,40 +60,6 @@ select distinct json.key as column_name
 
 FROM {{ source('tap_linkedin', 'campaign')}},
 
-lateral flatten(input=>RUNSCHEDULE) json
-{% endset %}
- 
-{% set run_schedule_results = run_query(json_column_query) %}
-
-{% if execute %}
-{# Return the first column #}
-{% set run_schedule_list = run_schedule_results.columns[0].values() %}
-{% else %}
-{% set run_schedule_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign')}},
-
-lateral flatten(input=>TARGETINGCRITERIA) json
-{% endset %}
- 
-{% set targeting_criteria_results = run_query(json_column_query) %}
-
-{% if execute %}
-{# Return the first column #}
-{% set targeting_criteria_list = targeting_criteria_results.columns[0].values() %}
-{% else %}
-{% set targeting_criteria_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign')}},
-
 lateral flatten(input=>UNITCOST) json
 {% endset %}
  
@@ -167,10 +133,7 @@ FROM (SELECT ID,
        LOCALE:{{column_name}}::varchar as {{column_name}}{%- if not loop.last %},{% endif -%}
        {% endfor %},
 
-       {% for column_name in run_schedule_list %}
-       RUNSCHEDULE:{{column_name}}::varchar as "RUN_SCHEDULE_START"{%- if not loop.last %},{% endif -%}
-       {% endfor %},
-
+       RUN_SCHEDULE_START,
        RUN_SCHEDULE_END,
        
        {% for column_name in version_list %}
