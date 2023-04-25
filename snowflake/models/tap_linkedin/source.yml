@@ -11,3 +11,4 @@ sources:
       - name: video_ads
       - name: ad_analytics_by_campaign
       - name: ad_analytics_by_creative
+      - name: creatives
