@@ -7,7 +7,8 @@
 
 SELECT ID as ACCOUNT_ID,
        LAST_MODIFIED_TIME as ACCOUNT_LAST_MODIFIED_TIME,
-       STATUS
+       STATUS,
+       _SDC_BATCHED_AT
      
 
 

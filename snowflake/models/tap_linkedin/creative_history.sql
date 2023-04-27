@@ -31,6 +31,7 @@ IS_SERVING,
 LAST_MODIFIED_BY,
 REVIEW_STATUS,
 CAMPAIGN_ID,
-ACCOUNT_ID
+ACCOUNT_ID,
+_SDC_BATCHED_AT
 
 FROM {{ source('tap_linkedin', 'creatives') }} as creative_history

@@ -66,6 +66,7 @@ SELECT CAMPAIGN_ID,
        VIRAL_VIDEO_MIDPOINT_COMPLETIONS,
        VIRALVIDEOSTARTS as VIRAL_VIDEO_STARTS,
        VIRAL_VIDEO_THIRD_QUARTILE_COMPLETIONS,
-       VIRAL_VIDEO_VIEWS
+       VIRAL_VIDEO_VIEWS,
+       _SDC_BATCHED_AT
 
 FROM {{ source('tap_linkedin', 'ad_analytics_by_campaign') }} as ad_analytics_by_campaign
