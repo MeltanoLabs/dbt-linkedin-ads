@@ -1,6 +1,6 @@
 {{
    config(
-     materialized='table'
+     materialized='view'
    )
 }}
 
@@ -33,6 +33,7 @@ SELECT ID,
        CURRENCY,
        STATUS,
        TYPE,
+       _SDC_BATCHED_AT,
 
 
 {% for column_name in version_list %}

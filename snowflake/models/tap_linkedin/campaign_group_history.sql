@@ -1,6 +1,6 @@
 {{
    config(
-     materialized='table'
+     materialized='view'
    )
 }}
 
@@ -23,6 +23,7 @@ FROM (SELECT ID,
        RUN_SCHEDULE_START,
        RUN_SCHEDULE_END,
 
-       ACCOUNT_ID
+       ACCOUNT_ID,
+       _SDC_BATCHED_AT
 
 FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_history)
