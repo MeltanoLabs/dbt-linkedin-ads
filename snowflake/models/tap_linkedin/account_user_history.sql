@@ -4,11 +4,12 @@
    )
 }}
 
-SELECT ACCOUNT_ID,
-       USER_PERSON_ID as ID,
-       LAST_MODIFIED_TIME,
-       ROLE,
-       CREATED_TIME,
-       _SDC_BATCHED_AT
+SELECT
+    account_id,
+    user_person_id AS id,
+    last_modified_time,
+    role,
+    created_time,
+    _sdc_batched_at
 
-FROM {{ source('tap_linkedin', 'account_user') }} as account_user_history
+FROM {{ source('tap_linkedin', 'account_user') }}

@@ -7,8 +7,8 @@ runaway_limit = 100
 
 [sqlfluff:templater:dbt]
 project_dir = .
-profiles_dir = profiles/snowflake/
-profile = meltano
+profiles_dir = ~/.dbt
+profile = RYAN-MIRANDA-RAW-LINKEDIN
 
 [sqlfluff:rules:capitalisation.keywords]
 capitalisation_policy = upper

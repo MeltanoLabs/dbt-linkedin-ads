@@ -4,9 +4,10 @@
    )
 }}
 
-SELECT ID as CREATIVE_ID,
-       LAST_MODIFIED_TIME as CREATIVE_LAST_MODIFIED_TIME,
-       STATUS,
-       _SDC_BATCHED_AT
+SELECT
+    id AS creative_id,
+    last_modified_time AS creative_last_modified_time,
+    status,
+    _sdc_batched_at
 
-FROM {{ source('tap_linkedin', 'creatives') }} as creative_serving_status_history
+FROM {{ source('tap_linkedin', 'creatives') }}

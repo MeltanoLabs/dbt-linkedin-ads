@@ -4,9 +4,10 @@
    )
 }}
 
-SELECT ID as CAMPAIGN_GROUP_ID,
-       LAST_MODIFIED_TIME as CAMPAIGN_GROUP_LAST_MODIFIED_TIME,
-       STATUS,
-       _SDC_BATCHED_AT
+SELECT
+    id AS campaign_group_id,
+    last_modified_time AS campaign_group_last_modified_time,
+    status,
+    _sdc_batched_at
 
-FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_serving_status_history
+FROM {{ source('tap_linkedin', 'campaign_groups') }}
