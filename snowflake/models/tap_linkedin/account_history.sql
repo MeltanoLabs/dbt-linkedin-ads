@@ -33,11 +33,12 @@ SELECT ID,
        CURRENCY,
        STATUS,
        TYPE,
-       _SDC_BATCHED_AT,
 
 
 {% for column_name in version_list %}
 VERSION:{{column_name}}::varchar as "VERSION_TAG"{%- if not loop.last %},{% endif -%}
-{% endfor %}
+{% endfor %},
+
+_SDC_BATCHED_AT
 
 FROM {{ source('tap_linkedin', 'account') }} as account_history
