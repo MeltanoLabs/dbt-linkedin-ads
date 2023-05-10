@@ -4,15 +4,16 @@
    )
 }}
 
-SELECT ID,
-       LAST_MODIFIED_TIME,
-       CREATED_TIME,
-       NAME,
-       BACKFILLED,
-       STATUS,
-       RUN_SCHEDULE_START,
-       RUN_SCHEDULE_END,
-       ACCOUNT_ID,
-       _SDC_BATCHED_AT
+SELECT
+    id,
+    last_modified_time,
+    created_time,
+    name,
+    backfilled,
+    status,
+    run_schedule_start,
+    run_schedule_end,
+    account_id,
+    _sdc_batched_at
 
-FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_history
+FROM {{ source('tap_linkedin', 'campaign_groups') }}
