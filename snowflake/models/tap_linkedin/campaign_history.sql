@@ -133,7 +133,9 @@ FROM (SELECT
 
     {% for column_name in locale_list %}
         locale:{{ column_name }}::varchar AS {{ column_name }}{%- if not loop.last %}
+            
             ,
+        
         {% endif -%}
     {% endfor %},
 
@@ -142,19 +144,25 @@ FROM (SELECT
 
     {% for column_name in version_list %}
         version:{{ column_name }}::varchar AS {{ column_name }}{%- if not loop.last %}
+            
             ,
+        
         {% endif -%}
     {% endfor %},
 
     {% for column_name in daily_budget_list %}
         dailybudget:{{ column_name }}::varchar AS "DAILYBUDGET_{{ column_name }}"{%- if not loop.last %}
+            
             ,
+        
         {% endif -%}
     {% endfor %},
 
     {% for column_name in unit_cost_list %}
         unitcost:{{ column_name }}::varchar AS "UNITCOST_{{ column_name }}"{%- if not loop.last %}
+            
             ,
+        
         {% endif -%}
     {% endfor %},
 
