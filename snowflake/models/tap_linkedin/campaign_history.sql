@@ -43,23 +43,6 @@ select distinct json.key as column_name
 
 FROM {{ source('tap_linkedin', 'campaign') }},
 
-lateral flatten(input=>OFFSITEPREFERENCES) json
-{% endset %}
-
-{% set offsite_preferences_results = run_query(json_column_query) %}
-
-{% if execute %}
-    {# Return the first column #}
-    {% set offsite_preferences_list = offsite_preferences_results.columns[0].values() %}
-{% else %}
-{% set offsite_preferences_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign') }},
-
 lateral flatten(input=>UNITCOST) json
 {% endset %}
 
@@ -106,11 +89,9 @@ SELECT
     format,
 
     {% for column_name in locale_list %}
-        locale:{{ column_name }}::varchar AS locale_{{ column_name }}{%- if not loop.last %}
-            
+        locale:{{ column_name }}::varchar AS locale_{{ column_name }}{%- if not loop.last %}        
 
             ,
-
         
         {% endif -%}
     {% endfor %},
