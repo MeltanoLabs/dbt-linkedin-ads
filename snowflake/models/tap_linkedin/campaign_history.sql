@@ -131,15 +131,10 @@ SELECT
     dailybudget:currencyCode::varchar AS daily_budget_currency_code
     ,
 
-
-
-
     unitcost:amount::varchar AS unit_cost_amount,
     unitcost:currencyCode::varchar AS unit_cost_currency_code
 
     ,
-
-
 
     campaign_group_id,
     account_id,
