@@ -43,23 +43,6 @@ select distinct json.key as column_name
 
 FROM {{ source('tap_linkedin', 'campaign') }},
 
-lateral flatten(input=>OFFSITEPREFERENCES) json
-{% endset %}
-
-{% set offsite_preferences_results = run_query(json_column_query) %}
-
-{% if execute %}
-    {# Return the first column #}
-    {% set offsite_preferences_list = offsite_preferences_results.columns[0].values() %}
-{% else %}
-{% set offsite_preferences_list = [] %}
-{% endif %}
-
-{% set json_column_query %}
-select distinct json.key as column_name
-
-FROM {{ source('tap_linkedin', 'campaign') }},
-
 lateral flatten(input=>UNITCOST) json
 {% endset %}
 
@@ -104,36 +87,10 @@ SELECT
     audienceexpansionenabled AS audience_expansion_enabled,
     status,
     format,
-    country AS locale_country,
-    language AS locale_language,
-    run_schedule_start,
-    run_schedule_end,
-    versiontag AS version_tag,
-    "DAILYBUDGET_amount" AS daily_budget_amount,
-    "DAILYBUDGET_currencyCode" AS daily_budget_currency_code,
-    "UNITCOST_amount" AS unit_cost_amount,
-    "UNITCOST_currencyCode" AS unit_cost_currency_code,
-    campaign_group_id,
-    account_id
-FROM (SELECT
-    id,
-    last_modified_time,
-    created_time,
-    type,
-    objectivetype,
-    associatedentity,
-    optimizationtargettype,
-    costtype,
-    creativeselection,
-    name,
-    offsitedeliveryenabled,
-    audienceexpansionenabled,
-    status,
-    format,
 
     {% for column_name in locale_list %}
-        locale:{{ column_name }}::varchar AS {{ column_name }}{%- if not loop.last %}
-            
+        locale:{{ column_name }}::varchar AS locale_{{ column_name }}{%- if not loop.last %}        
+
             ,
         
         {% endif -%}
@@ -143,32 +100,26 @@ FROM (SELECT
     run_schedule_end,
 
     {% for column_name in version_list %}
-        version:{{ column_name }}::varchar AS {{ column_name }}{%- if not loop.last %}
+        version:{{ column_name }}::varchar AS version_tag{%- if not loop.last %}
             
             ,
         
         {% endif -%}
     {% endfor %},
 
-    {% for column_name in daily_budget_list %}
-        dailybudget:{{ column_name }}::varchar AS "DAILYBUDGET_{{ column_name }}"{%- if not loop.last %}
-            
-            ,
-        
-        {% endif -%}
-    {% endfor %},
 
-    {% for column_name in unit_cost_list %}
-        unitcost:{{ column_name }}::varchar AS "UNITCOST_{{ column_name }}"{%- if not loop.last %}
-            
-            ,
-        
-        {% endif -%}
-    {% endfor %},
+    dailybudget:amount::varchar AS daily_budget_amount,
+    dailybudget:currencyCode::varchar AS daily_budget_currency_code
+    ,
+
+    unitcost:amount::varchar AS unit_cost_amount,
+    unitcost:currencyCode::varchar AS unit_cost_currency_code
+
+    ,
 
     campaign_group_id,
     account_id,
     _sdc_batched_at
 
 
-FROM {{ source('tap_linkedin', 'campaign') }})
+FROM {{ source('tap_linkedin', 'campaign') }}

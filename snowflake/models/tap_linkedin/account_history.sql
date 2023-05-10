@@ -39,7 +39,9 @@ SELECT
     {% for column_name in version_list %}
         version:{{ column_name }}::varchar AS "VERSION_TAG"{%- if not loop.last %}
             
+            
             ,
+        
         
         {% endif -%}
     {% endfor %},
