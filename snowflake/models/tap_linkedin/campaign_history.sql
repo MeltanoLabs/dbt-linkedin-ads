@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 {% set json_column_query %}
 select distinct json.key as column_name
 

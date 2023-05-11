@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 SELECT
     id AS campaign_group_id,
     last_modified_time AS campaign_group_last_modified_time,

@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 SELECT
     creative_id,
     day,

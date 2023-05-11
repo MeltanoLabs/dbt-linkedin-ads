@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 SELECT
     campaign_id,
     day,

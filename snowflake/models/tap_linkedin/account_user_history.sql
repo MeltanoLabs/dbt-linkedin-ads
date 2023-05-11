@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 SELECT
     account_id,
     user_person_id AS id,
