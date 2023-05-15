@@ -31,7 +31,7 @@ SELECT
 
 
     {% for column_name in version_list %}
-        version:{{ column_name }}::varchar AS "VERSION_TAG"{%- if not loop.last %}
+        version:"versionTag"::varchar AS version_tag{%- if not loop.last %}
             
             
             ,
