@@ -81,36 +81,15 @@ SELECT
     audienceexpansionenabled AS audience_expansion_enabled,
     status,
     format,
-
-    {% for column_name in locale_list %}
-        locale:{{ column_name }}::varchar AS locale_{{ column_name }}{%- if not loop.last %}        
-
-            ,
-        
-        {% endif -%}
-    {% endfor %},
-
+    locale:country::varchar AS locale_country,
+    locale:language::varchar AS locale_language,   
     run_schedule_start,
     run_schedule_end,
-
-    {% for column_name in version_list %}
-        version:{{ column_name }}::varchar AS version_tag{%- if not loop.last %}
-            
-            ,
-        
-        {% endif -%}
-    {% endfor %},
-
-
+    version:"versionTag"::varchar AS version_tag,
     dailybudget:amount::varchar AS daily_budget_amount,
-    dailybudget:currencyCode::varchar AS daily_budget_currency_code
-    ,
-
+    dailybudget:currencyCode::varchar AS daily_budget_currency_code,
     unitcost:amount::varchar AS unit_cost_amount,
-    unitcost:currencyCode::varchar AS unit_cost_currency_code
-
-    ,
-
+    unitcost:currencyCode::varchar AS unit_cost_currency_code,
     campaign_group_id,
     account_id,
     _sdc_batched_at

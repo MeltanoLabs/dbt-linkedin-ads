@@ -28,18 +28,7 @@ SELECT
     currency,
     status,
     type,
-
-
-    {% for column_name in version_list %}
-        version:"versionTag"::varchar AS version_tag{%- if not loop.last %}
-            
-            
-            ,
-        
-        
-        {% endif -%}
-    {% endfor %},
-
+    version:"versionTag"::varchar AS version_tag,
     _sdc_batched_at
 
 FROM {{ source('tap_linkedin', 'account') }}
