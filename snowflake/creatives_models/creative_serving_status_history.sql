@@ -1,9 +1,3 @@
-{{
-   config(
-     materialized='view'
-   )
-}}
-
 SELECT
     id AS creative_id,
     last_modified_time AS creative_last_modified_time,
