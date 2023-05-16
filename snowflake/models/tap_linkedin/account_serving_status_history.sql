@@ -4,6 +4,4 @@ SELECT
     status,
     _sdc_batched_at
 
-
-
 FROM {{ source('tap_linkedin', 'account') }}
