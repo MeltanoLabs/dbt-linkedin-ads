@@ -1,8 +1,13 @@
-{{
-   config(
-     materialized='table'
-   )
-}}
+SELECT
+    id,
+    last_modified_time,
+    created_time,
+    name,
+    backfilled,
+    status,
+    run_schedule_start,
+    run_schedule_end,
+    account_id,
+    _sdc_batched_at
 
-SELECT *
-FROM {{ source('tap_linkedin', 'campaign_groups') }} as campaign_group_history
+FROM {{ source('tap_linkedin', 'campaign_groups') }}

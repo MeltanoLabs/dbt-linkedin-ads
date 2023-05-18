@@ -1,7 +1,69 @@
 version: 2
 sources:
   - name: tap_linkedin
-    loader: meltano
-    schema: TEST_MELTANO_LINKEDIN
+    schema: MELTANO_LINKEDIN
     tables:
-      - name: accounts
+      - name: campaign
+      - name: campaign_groups
+      - name: account
+      - name: account_user
+      - name: video_ads
+      - name: ad_analytics_by_campaign
+      - name: ad_analytics_by_creative
+      - name: creatives
+models:
+  - name: account_history
+    columns:
+      - name: last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: account_serving_status_history
+    columns:
+      - name: account_last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: account_user_history
+    columns:
+      - name: last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: campaign_history
+    columns:
+      - name: last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: campaign_serving_status_history
+    columns:
+      - name: campaign_last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: campaign_group_history
+    columns:
+      - name: last_modified_time
+        tests:
+          - unique
+          - not_null
+  - name: campaign_group_serving_status_history
+    columns:
+      - name: campaign_group_last_modified_time
+        tests:
+          - unique
+          - not_null    
+  - name: ad_analytics_by_campaign
+    columns:
+      - name: day
+        tests:
+          - unique
+          - not_null
+  - name: ad_analytics_by_creative
+    columns:
+      - name: day
+        tests:
+          - unique
+          - not_null
+          

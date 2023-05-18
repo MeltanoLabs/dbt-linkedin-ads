@@ -1,8 +1,30 @@
-{{
-   config(
-     materialized='table'
-   )
-}}
+SELECT
+    id,
+    last_modified_time,
+    created_time,
+    type,
+    objectivetype AS objective_type,
+    associatedentity AS associated_entity,
+    optimizationtargettype AS optimization_target_type,
+    costtype AS cost_type,
+    creativeselection AS creative_selection,
+    name,
+    offsitedeliveryenabled AS offsite_delivery_enabled,
+    audienceexpansionenabled AS audience_expansion_enabled,
+    status,
+    format,
+    locale:country::varchar AS locale_country,
+    locale:language::varchar AS locale_language,   
+    run_schedule_start,
+    run_schedule_end,
+    version:"versionTag"::varchar AS version_tag,
+    dailybudget:amount::varchar AS daily_budget_amount,
+    dailybudget:currencyCode::varchar AS daily_budget_currency_code,
+    unitcost:amount::varchar AS unit_cost_amount,
+    unitcost:currencyCode::varchar AS unit_cost_currency_code,
+    campaign_group_id,
+    account_id,
+    _sdc_batched_at
 
-SELECT *
-FROM {{ source('tap_linkedin', 'campaign') }} as campaign_history
+
+FROM {{ source('tap_linkedin', 'campaign') }}

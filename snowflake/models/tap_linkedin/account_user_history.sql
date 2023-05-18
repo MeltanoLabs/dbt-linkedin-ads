@@ -1,8 +1,9 @@
-{{
-   config(
-     materialized='table'
-   )
-}}
+SELECT
+    account_id,
+    user_person_id AS id,
+    last_modified_time,
+    role,
+    created_time,
+    _sdc_batched_at
 
-SELECT *
-FROM {{ source('tap_linkedin', 'account_users') }} as account_users_history
+FROM {{ source('tap_linkedin', 'account_user') }}
