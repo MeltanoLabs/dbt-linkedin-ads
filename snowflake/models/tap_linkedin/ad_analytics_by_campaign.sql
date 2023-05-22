@@ -1,6 +1,6 @@
 SELECT
     campaign_id,
-    day,
+    CAST(CAST(day AS date) AS datetime) as day,
     actionclicks AS action_clicks,
     adunitclicks AS ad_unit_clicks,
     approximateuniqueimpressions AS approximate_unique_impressions,
