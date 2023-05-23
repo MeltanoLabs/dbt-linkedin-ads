@@ -1,4 +1,4 @@
-# dbt-facebook-meltano-sdk
+# dbt-linkedin-ads
 
 
 ## SQLFluff Linting
