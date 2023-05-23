@@ -22,12 +22,11 @@ Supported warehouses:
 
 ## Installation and use
 
-1. Include the following package version in your `packages.yml` file. Check [dbt Hub](https://hub.getdbt.com/) for the latest version to use.
+1. Include the following package version in your `packages.yml` file.
 
 ```yml
 packages:
-    - package: meltano/linkedin_ads # TBC
-      version: 0.1.0 # TBC
+    - git: "https://github.com/MeltanoLabs/dbt-linkedin-ads.git" # git URL
 ```
 
 2. Install the package by running `dbt deps`
