@@ -1,7 +1,8 @@
 version: 2
 sources:
   - name: tap_linkedin
-    schema: MELTANO_LINKEDIN
+    database: "{{ var('linkedin_ads_database') }}"
+    schema: "{{ var ('linkedin_ads_schema', 'tap_linkedin_ads') }}"
     tables:
       - name: campaign
       - name: campaign_groups

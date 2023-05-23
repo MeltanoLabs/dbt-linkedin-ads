@@ -1,10 +1,10 @@
-name: 'snowflake'
+name: 'dbt_linkedin_ads'
 version: '1.0.0'
 config-version: 2
 
-profile: 'RYAN-MIRANDA-RAW-LINKEDIN' #TODO: CHANGE PROFILE NAME BASED ON MELTANO RECOMMENDATION
+profile: 'dbt_linkedin_ads'
 
-model-paths: ["snowflake/models"]
+model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
