@@ -8,7 +8,7 @@ runaway_limit = 100
 [sqlfluff:templater:dbt]
 project_dir = .
 profiles_dir = ~/.dbt
-profile = RYAN-MIRANDA-RAW-LINKEDIN
+profile = dbt_linkedin_ads
 
 [sqlfluff:rules:capitalisation.keywords]
 capitalisation_policy = upper
